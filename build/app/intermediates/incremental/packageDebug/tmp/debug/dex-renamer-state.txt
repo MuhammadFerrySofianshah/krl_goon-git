@@ -1,0 +1,4 @@
+#Mon Jan 01 13:12:34 WIB 2024
+base.0=D\:\\Folder Fery\\Folder Flutter\\krl_goon\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+path.0=classes.dex
+renamed.0=classes.dex

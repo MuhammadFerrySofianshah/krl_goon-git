@@ -1,0 +1,19 @@
+com.example.krl_goon.app-jetified-annotation-experimental-1.1.0-0 C:\Users\LENOVO\.gradle\caches\transforms-3\02315cc9f75263553d2042718fc375ee\transformed\jetified-annotation-experimental-1.1.0\res
+com.example.krl_goon.app-jetified-window-1.0.0-beta04-1 C:\Users\LENOVO\.gradle\caches\transforms-3\076eb9235982ee06112d76594ea8585f\transformed\jetified-window-1.0.0-beta04\res
+com.example.krl_goon.app-jetified-firebase-common-20.4.2-2 C:\Users\LENOVO\.gradle\caches\transforms-3\29429379be0edfde063e43fae29f4d1b\transformed\jetified-firebase-common-20.4.2\res
+com.example.krl_goon.app-browser-1.4.0-3 C:\Users\LENOVO\.gradle\caches\transforms-3\3b15f093a1d4ccfedac46d94f54273e7\transformed\browser-1.4.0\res
+com.example.krl_goon.app-jetified-play-services-basement-18.1.0-4 C:\Users\LENOVO\.gradle\caches\transforms-3\55b4e390742817dc4b9653e42d791034\transformed\jetified-play-services-basement-18.1.0\res
+com.example.krl_goon.app-jetified-play-services-base-18.0.1-5 C:\Users\LENOVO\.gradle\caches\transforms-3\680a2964d8a0bce7cbd43c0f88e0420c\transformed\jetified-play-services-base-18.0.1\res
+com.example.krl_goon.app-jetified-window-java-1.0.0-beta04-6 C:\Users\LENOVO\.gradle\caches\transforms-3\99750bb863b6fe460a7b5da8686e778d\transformed\jetified-window-java-1.0.0-beta04\res
+com.example.krl_goon.app-core-1.6.0-7 C:\Users\LENOVO\.gradle\caches\transforms-3\d08c73bfb05384f2e52578171dbd141e\transformed\core-1.6.0\res
+com.example.krl_goon.app-debug-8 D:\Folder Fery\Folder Flutter\krl_goon\android\app\src\debug\res
+com.example.krl_goon.app-main-9 D:\Folder Fery\Folder Flutter\krl_goon\android\app\src\main\res
+com.example.krl_goon.app-pngs-10 D:\Folder Fery\Folder Flutter\krl_goon\build\app\generated\res\pngs\debug
+com.example.krl_goon.app-resValues-11 D:\Folder Fery\Folder Flutter\krl_goon\build\app\generated\res\resValues\debug
+com.example.krl_goon.app-rs-12 D:\Folder Fery\Folder Flutter\krl_goon\build\app\generated\res\rs\debug
+com.example.krl_goon.app-mergeDebugResources-13 D:\Folder Fery\Folder Flutter\krl_goon\build\app\intermediates\incremental\debug\mergeDebugResources\merged.dir
+com.example.krl_goon.app-mergeDebugResources-14 D:\Folder Fery\Folder Flutter\krl_goon\build\app\intermediates\incremental\debug\mergeDebugResources\stripped.dir
+com.example.krl_goon.app-merged_res-15 D:\Folder Fery\Folder Flutter\krl_goon\build\app\intermediates\merged_res\debug
+com.example.krl_goon.app-packaged_res-16 D:\Folder Fery\Folder Flutter\krl_goon\build\firebase_auth\intermediates\packaged_res\debug
+com.example.krl_goon.app-packaged_res-17 D:\Folder Fery\Folder Flutter\krl_goon\build\firebase_core\intermediates\packaged_res\debug
+com.example.krl_goon.app-packaged_res-18 D:\Folder Fery\Folder Flutter\krl_goon\build\path_provider_android\intermediates\packaged_res\debug
