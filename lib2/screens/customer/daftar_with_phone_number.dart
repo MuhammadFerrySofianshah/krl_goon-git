@@ -222,6 +222,36 @@ class Auth extends ChangeNotifier {
         backgroundColor: Colors.green.shade900,
         content: Text(message.toString())));
   }
+   // DATABASE OPERTAIONS
+  Future<bool> checkExistingUser() async {
+    DocumentSnapshot snapshot =
+        await _firebaseAuth.collection("users").doc(_uid).get();
+    if (snapshot.exists) {
+      print("USER EXISTS");
+      return true;
+    } else {
+      print("NEW USER");
+      return false;
+    }
+  }
+  Future getDataFromFirestore() async {
+    await _firebaseFirestore
+        .collection("users")
+        .doc(_firebaseAuth.currentUser!.uid)
+        .get()
+        .then((DocumentSnapshot snapshot) {
+      _userModel = UserModel(
+        name: snapshot['name'],
+        email: snapshot['email'],
+        createdAt: snapshot['createdAt'],
+        bio: snapshot['bio'],
+        uid: snapshot['uid'],
+        profilePic: snapshot['profilePic'],
+        phoneNumber: snapshot['phoneNumber'],
+      );
+      _uid = userModel.uid;
+    });
+  }
 
   Future<String?> askingSMSCode(BuildContext context) async {
     return await showDialog<String>(
