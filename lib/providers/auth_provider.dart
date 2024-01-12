@@ -5,13 +5,11 @@ final _fireAuth = FirebaseAuth.instance;
 
 class AuthProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
-  String _namaLengkap = "";
 
   var isLogin = true;
   var enteredEmail = "";
   var enteredPassword = "";
   var enteredPhoneNumber = "";
-  String get namaLengkap=> _namaLengkap;
 
   void submit(BuildContext context) async {
     final isValid = formKey.currentState!.validate();
@@ -24,7 +22,6 @@ class AuthProvider extends ChangeNotifier {
         await _fireAuth.signInWithEmailAndPassword(
             email: enteredEmail, password: enteredPassword);
         print("Login Berhasil");
-        setNamaLengkap(context, namaLengkap);
       } else {
         await _fireAuth.createUserWithEmailAndPassword(
             email: enteredEmail, password: enteredPassword);
@@ -37,10 +34,6 @@ class AuthProvider extends ChangeNotifier {
         }
       }
     }
-    notifyListeners();
-  }
-  void setNamaLengkap(BuildContext context, String namaLengkap) {
-    _namaLengkap = namaLengkap ;
     notifyListeners();
   }
 
