@@ -1,10 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:krl_goon/pages/home_page.dart';
+import 'package:krl_goon/pages/login_page.dart';
+import 'package:krl_goon/pages/splashScreen_page.dart';
 import 'package:krl_goon/providers/auth_provider.dart' as my_auth_provider;
-import 'package:krl_goon/screens/customer/daftar_customer.dart';
-import 'package:krl_goon/screens/customer/daftar_with_phone_number.dart';
-import 'package:krl_goon/screens/home_screen.dart';
-import 'package:krl_goon/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -32,7 +31,7 @@ class MyApp extends StatelessWidget {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               home: snapshot.connectionState == ConnectionState.active
-                  ? (snapshot.hasData ? const HomeScreen() : const DaftarCustomer())
+                  ? (snapshot.hasData ? const HomeScreen() : const LoginPage())
                   : const SplashScreen(),
             );
           }),

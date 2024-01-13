@@ -7,11 +7,13 @@ class AuthProvider extends ChangeNotifier {
   final formKey = GlobalKey<FormState>();
 
   var isLogin = true;
+  var isSignup = true;
   var enteredEmail = "";
   var enteredPassword = "";
   var enteredPhoneNumber = "";
 
-  void submit(BuildContext context) async {
+// LogIn Submit
+  void loginSubmit(String email, String password) async {
     final isValid = formKey.currentState!.validate();
     if (!isValid) {
       return;
@@ -22,9 +24,30 @@ class AuthProvider extends ChangeNotifier {
         await _fireAuth.signInWithEmailAndPassword(
             email: enteredEmail, password: enteredPassword);
         print("Login Berhasil");
-      } else {
+      }
+    } catch (e) {
+      if (e is FirebaseAuthException) {
+        if (e.code == 'email-already-in-use') {
+          print('Email Telah digunakan');
+        }
+      }
+    }
+    notifyListeners();
+  }
+
+// SignUp Submit
+  void signupSubmit(BuildContext context) async {
+    final isValid = formKey.currentState!.validate();
+    if (!isValid) {
+      return;
+    }
+    formKey.currentState!.save();
+    try {
+      if (isSignup) {
         await _fireAuth.createUserWithEmailAndPassword(
-            email: enteredEmail, password: enteredPassword);
+          email: enteredEmail,
+          password: enteredPassword,
+        );
         print("Daftar Berhasil");
       }
     } catch (e) {
@@ -37,12 +60,14 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+// Notifikasi Bar
   void showNotification(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         backgroundColor: Colors.green.shade900,
         content: Text(message.toString())));
   }
 
+// SMS Code OTP
   Future<String?> askingSMSCode(BuildContext context) async {
     return await showDialog<String>(
         context: context,

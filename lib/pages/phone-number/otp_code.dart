@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:krl_goon/screens/customer/daftar_customer.dart';
+import 'package:krl_goon/pages/daftar_page.dart';
 import 'package:pinput/pinput.dart';
 
 class MyWidget extends StatefulWidget {
@@ -22,7 +22,7 @@ class _MyWidgetState extends State<MyWidget> {
                 onTap: () => Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => const DaftarCustomer())),
+                        builder: (context) => const DaftarPage())),
                 child: const Icon(Icons.arrow_back),
               ),
             ),
