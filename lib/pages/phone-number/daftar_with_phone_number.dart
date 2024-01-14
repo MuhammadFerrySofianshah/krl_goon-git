@@ -130,7 +130,7 @@ class Auth {
                 await FirebaseAuth.instance.signInWithCredential(credential);
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => HomeScreen()),
+                  MaterialPageRoute(builder: (context) => HomePage()),
                 );
               } on FirebaseAuthException catch (e) {
                 print(e.message.toString());

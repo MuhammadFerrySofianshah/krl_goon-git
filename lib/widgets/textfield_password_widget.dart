@@ -17,7 +17,6 @@ class _TextfieldPasswordWidgetState extends State<TextfieldPasswordWidget> {
   bool obscureText = true;
   @override
   Widget build(BuildContext context) {
-    var loadAuth = Provider.of<AuthProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -58,10 +57,6 @@ class _TextfieldPasswordWidgetState extends State<TextfieldPasswordWidget> {
             }
             return null;
           },
-          onSaved: (value) {
-            loadAuth.enteredPassword = value! ;
-          },
-          
         ),
       ],
     );

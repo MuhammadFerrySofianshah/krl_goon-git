@@ -10,6 +10,7 @@ import 'package:krl_goon/widgets/textfield_email_widget.dart';
 import 'package:krl_goon/widgets/textfield_namalengkap_widget.dart';
 import 'package:krl_goon/widgets/textfield_password_widget.dart';
 import 'package:provider/provider.dart';
+  
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -56,7 +57,7 @@ class LoginPageState extends State<LoginPage> {
               ),
               const SizedBox(height: 20),
               Form(
-                key: loadAuth.formKey,
+                // key: formKey.formKeyLogin,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -92,7 +93,7 @@ class LoginPageState extends State<LoginPage> {
 // Button Submit
                             ElevatedButton(
                               onPressed: () {
-                                loadAuth.loginSubmit(context);
+                                loadAuth.loginSubmit(emailController.text,passwordController.text, context);
                               },
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(

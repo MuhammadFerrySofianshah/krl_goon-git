@@ -10,7 +10,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
- 
 
   cupertino_icons: ^1.0.2
   google_fonts: ^6.1.0
@@ -20,6 +19,7 @@ dependencies:
   provider: ^6.1.1
   pinput: ^3.0.1
   get: ^4.6.6
+  flutter_form_builder: ^9.1.1
 
 dev_dependencies:
   flutter_test:

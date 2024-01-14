@@ -17,7 +17,6 @@ class _TexttFieldNamaLengkapWidgetState
     extends State<TexttFieldNamaLengkapWidget> {
   @override
   Widget build(BuildContext context) {
-    var loadAuth = Provider.of<AuthProvider>(context);
     return Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +42,6 @@ class _TexttFieldNamaLengkapWidgetState
                   borderRadius: BorderRadius.circular(10),
                 ),
                 hintText: "Masukan Nama Lengkap Anda",
-                //warna bg
                 filled: true,
                 fillColor: const Color(0xff121931).withOpacity(.08)),
             validator: (value) {
@@ -52,9 +50,7 @@ class _TexttFieldNamaLengkapWidgetState
               } 
               return null;
             },
-            onSaved: (value) {
-              loadAuth.enteredEmail = value!;
-            }),
+            ),
       ],
     ));
   }

@@ -14,7 +14,6 @@ class TextfieldEmailWidget extends StatefulWidget {
 class _TextfieldEmailWidgetState extends State<TextfieldEmailWidget> {
   @override
   Widget build(BuildContext context) {
-    var loadAuth = Provider.of<AuthProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -50,9 +49,6 @@ class _TextfieldEmailWidgetState extends State<TextfieldEmailWidget> {
             }
             return null;
           },
-          onSaved: (value) {
-          loadAuth.enteredEmail = value! ;
-          }
         ),
       ],
     );

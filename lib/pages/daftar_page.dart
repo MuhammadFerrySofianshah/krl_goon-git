@@ -19,6 +19,7 @@ class DaftarPage extends StatefulWidget {
 class _DaftarPageState extends State<DaftarPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController = TextEditingController();
   final TextEditingController namaLengkapController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -55,7 +56,7 @@ class _DaftarPageState extends State<DaftarPage> {
               ),
               const SizedBox(height: 20),
               Form(
-                key: loadAuth.formKey,
+                // key: formKey.formKeyDaftar,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -71,7 +72,7 @@ class _DaftarPageState extends State<DaftarPage> {
                     const SizedBox(height: 9),
 // Ulangi - Password
                       TextfieldConfirmPasswordWidget(
-                          controller: passwordController),
+                          controller: confirmPasswordController),
                     const SizedBox(
                       height: 21,
                     ),
@@ -84,7 +85,7 @@ class _DaftarPageState extends State<DaftarPage> {
 // Button Submit
                             ElevatedButton(
                               onPressed: () {
-                                loadAuth.signupSubmit(context);
+                                loadAuth.signupSubmit(emailController.text,passwordController.text, context);
                               },
                               style: ButtonStyle(
                                 backgroundColor: MaterialStateProperty.all(

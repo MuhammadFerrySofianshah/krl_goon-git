@@ -6,8 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:krl_goon/colors.dart';
 import 'package:krl_goon/pages/daftar_page.dart';
 
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {

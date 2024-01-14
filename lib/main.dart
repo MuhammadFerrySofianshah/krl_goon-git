@@ -26,33 +26,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => my_auth_provider.AuthProvider()),
       ],
       child: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.userChanges(),
+          stream: FirebaseAuth.instance.authStateChanges(),
           builder: (context, snapshot) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               home: snapshot.connectionState == ConnectionState.active
-                  ? (snapshot.hasData ? const HomeScreen() : const LoginPage())
+                  ? (snapshot.hasData && snapshot.data!.emailVerified == true ? const HomePage() : const LoginPage())
                   : const SplashScreen(),
             );
           }),
     );
   }
 }
-
-// class SplashScreenWrapper extends StatelessWidget {
-//   const SplashScreenWrapper({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return StreamBuilder<User?>(
-//       stream: FirebaseAuth.instance.authStateChanges(),
-//       builder: (context, snapshot) {
-//         if (snapshot.connectionState == ConnectionState.waiting) {
-//           return const SplashScreen();
-//         } else {
-//           return snapshot.hasData ? const HomeScreen() : const DaftarCustomer();
-//         }
-//       },
-//     );
-//   }
-// }

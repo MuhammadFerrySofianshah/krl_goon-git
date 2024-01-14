@@ -14,7 +14,6 @@ class TextfieldNoHandphone extends StatefulWidget {
 class TextfieldNoHandphoneState extends State<TextfieldNoHandphone> {
   @override
   Widget build(BuildContext context) {
-    var _loadAuth = Provider.of<AuthProvider>(context);
     return Center(
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
        
