@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:krl_goon/colors.dart';
-import 'package:krl_goon/providers/auth_provider.dart';
-import 'package:provider/provider.dart';
 
 class TextfieldNoHandphone extends StatefulWidget {
   const TextfieldNoHandphone({super.key, required this.controller});
