@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:krl_goon/pages/phone-number/otp_code.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../colors.dart';
 
@@ -292,25 +293,29 @@ class Auth {
 
   Future<void> submitWithPhoneNumber(context, String phoneNumber) async {
     try {
+//  NOTIFIKASI COY
       showDialog(
-      // barrierDismissible: false,
-    context: context,
-    builder: (BuildContext context) {
-      return const AlertDialog(
-        backgroundColor: Colors.transparent,
-        content: Center(
-          child: Text(
-            "Mengirim Code OTP...",
-            style: TextStyle(
-              fontSize: 18,
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
+        context: context,
+        builder: (context) {
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              LoadingAnimationWidget.hexagonDots(color: Colors.white, size: 50),
+              const SizedBox(height: 15),
+              const Text(
+                'Mengirim kode OTP...',
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.normal,
+                    decoration: TextDecoration.none),
+              ),
+            ],
+          );
+        },
       );
-          });
+
+// VERIFIKASI NOMOR TELP
       if (FirebaseAuth.instance.currentUser == null) {
         await FirebaseAuth.instance.verifyPhoneNumber(
           phoneNumber: '+62$phoneNumber',
@@ -319,14 +324,17 @@ class Auth {
           },
           verificationFailed: (exception) {
             errorMessage(context, 'Masukkan No.HP dengan benar!');
-            print('Gagal Masuk');
           },
           codeSent: (verificationId, resendCode) async {
             Get.to(
-              OTPPage(phoneNumber: phoneNumber, verificationId: verificationId),
+              OTPPage(phoneNumber: phoneNumber, verificationId: verificationId,resendToken: resendCode),
             );
           },
-          codeAutoRetrievalTimeout: (verificationId) {},
+          timeout: const Duration(seconds: 60),
+          codeAutoRetrievalTimeout: (String verificationId) {
+            verificationId = verificationId;
+          },
+          
         );
       } else {
         await FirebaseAuth.instance.signOut();
@@ -340,7 +348,7 @@ class Auth {
 // Notifikasi Dialog
 void errorMessage(BuildContext context, String message) {
   showDialog(
-    // Menghilangkan kemampuan menutup dialog dengan tap di luar dialog
+// Menghilangkan kemampuan menutup dialog dengan tap di luar dialog
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {

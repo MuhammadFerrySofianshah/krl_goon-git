@@ -13,11 +13,6 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      //  IconButton(
-      //         onPressed: () {
-      //           FirebaseAuth.instance.signOut();
-      //         },
-      //         icon: const Icon(Icons.logout))
       body: SafeArea(
         child: SingleChildScrollView(
           child: Stack(
@@ -44,7 +39,7 @@ class HomePage extends StatelessWidget {
                   children: [
                     Row(
                       children: [
-                        SvgPicture.asset('assets/svgs/card-uang.svg'),
+                        SvgPicture.asset('assets/svgs/isiSaldo-icon.svg'),
                         const SizedBox(width: 5),
                         Text(
                           'Rp',
@@ -78,8 +73,9 @@ class HomePage extends StatelessWidget {
                         ),
                         const Spacer(),
                         IconButton(
-                          onPressed: () => Get.to(const ProfilePage()),
-                          icon: SvgPicture.asset('assets/svgs/profile.svg')),
+                            onPressed: () => Get.to(const ProfilePage()),
+                            icon: SvgPicture.asset(
+                                'assets/svgs/profile-icon.svg')),
                       ],
                     ),
                     const SizedBox(height: 8),
@@ -106,16 +102,126 @@ class HomePage extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    Container(
-                      width: 335,
-                      height: 125,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        gradient: const LinearGradient(
-                            colors: [Color(0xffececec), Color(0xffDDDDDD)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight),
-                      ),
+                    Stack(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 125,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: const LinearGradient(
+                                colors: [Color(0xffececec), Color(0xffDDDDDD)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(2, 2),
+                                blurRadius: 3,
+                                color: Color(0x5b3d3d3d),
+                              ),
+                            ],
+                          ),
+                           child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: [
+                          Image.asset("assets/images/iklan-home.png"),
+                          Image.asset("assets/images/iklan-home.png"),
+                          Image.asset("assets/images/iklan-home.png"),
+
+                        ]),
+                        ),
+                       
+                      ],
+                    ),
+                    const SizedBox(height: 20),
+                    Stack(
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          height: 85,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: const LinearGradient(
+                                colors: [Color(0xffececec), Color(0xffDDDDDD)],
+                                begin: Alignment.topLeft,
+                                end: Alignment.bottomRight),
+                            boxShadow: const [
+                              BoxShadow(
+                                offset: Offset(2, 2),
+                                blurRadius: 3,
+                                color: Color(0x5b3d3d3d),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(25, 13, 25, 5),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                children: [
+                                  SvgPicture.asset("assets/svgs/rute-icon.svg"),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    "Rute",
+                                    style: GoogleFonts.poppins(
+                                      color: blackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SvgPicture.asset(
+                                      "assets/svgs/isiSaldo-icon.svg"),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    "Isi Saldo",
+                                    style: GoogleFonts.poppins(
+                                      color: blackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SvgPicture.asset(
+                                      "assets/svgs/riwayat-icon.svg"),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    "Riwayat",
+                                    style: GoogleFonts.poppins(
+                                      color: blackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  SvgPicture.asset(
+                                      "assets/svgs/bantuan-icon.svg"),
+                                  const SizedBox(height: 6),
+                                  Text(
+                                    "Bantuan",
+                                    style: GoogleFonts.poppins(
+                                      color: blackColor,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -123,6 +229,11 @@ class HomePage extends StatelessWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.grey[300],
+        onPressed: () {},
+        child: SvgPicture.asset("assets/svgs/tiket-icon.svg"),
       ),
     );
   }

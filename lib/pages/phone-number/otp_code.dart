@@ -4,18 +4,18 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:krl_goon/colors.dart';
-import 'package:krl_goon/pages/home/home_page.dart';
-import 'package:krl_goon/pages/phone-number/auth_phone_number.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPPage extends StatefulWidget {
   final String phoneNumber;
-  final String verificationId;
-  const OTPPage({
+  String verificationId = "";
+  int? resendToken;
+
+  OTPPage({
     Key? key,
     required this.phoneNumber,
     required this.verificationId,
+    required this.resendToken,
   }) : super(key: key);
 
   @override
@@ -24,7 +24,6 @@ class OTPPage extends StatefulWidget {
 
 class _OTPPageState extends State<OTPPage> {
   TextEditingController otpController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
   late Timer _resendTimer;
   int _resendSeconds = 60;
   bool _canResend = false;
@@ -33,23 +32,22 @@ class _OTPPageState extends State<OTPPage> {
   void initState() {
     super.initState();
     startResendTimer();
-    phoneController = AuthPhoneNumberState.getPhoneController();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
-        backgroundColor: bgColor,
+        backgroundColor: Colors.white,
         centerTitle: true,
         title: RichText(
           text: TextSpan(
             text: 'KRL',
             style: GoogleFonts.openSans(
-              color: blackColor,
+              color: Colors.black,
               fontSize: 22,
               fontWeight: FontWeight.w700,
             ),
@@ -57,7 +55,7 @@ class _OTPPageState extends State<OTPPage> {
               TextSpan(
                 text: 'GoOn',
                 style: GoogleFonts.openSans(
-                  color: yellowColor,
+                  color: Colors.amber,
                   fontSize: 24,
                   fontWeight: FontWeight.w800,
                 ),
@@ -76,11 +74,10 @@ class _OTPPageState extends State<OTPPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 10),
-                    // TEXT KODE OTP TELAH TERKIRIM
                     Text(
                       'Kode OTP telah terkirim ke nomor:',
                       style: GoogleFonts.poppins(
-                        color: blackColor,
+                        color: Colors.black,
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                       ),
@@ -90,28 +87,26 @@ class _OTPPageState extends State<OTPPage> {
                         Text(
                           "+62${widget.phoneNumber}",
                           style: GoogleFonts.poppins(
-                            color: blackColor,
+                            color: Colors.black,
                             fontSize: 20,
                             fontWeight: FontWeight.w600,
                           ),
                         ),
                         const SizedBox(width: 10),
                         GestureDetector(
-                          onTap: () => Get.off(const AuthPhoneNumber()),
+                          onTap: () => Get.back(),
                           child: Text(
                             "Ganti",
                             style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.normal,
-                              color: yellowColor,
+                              color: Colors.amber,
                             ),
                           ),
                         ),
                       ],
                     ),
                     const SizedBox(height: 30),
-
-                    // FORM CODE OTP
                     Center(
                       child: Pinput(
                         controller: otpController,
@@ -121,11 +116,11 @@ class _OTPPageState extends State<OTPPage> {
                           height: 60,
                           textStyle: GoogleFonts.poppins(
                             fontSize: 22,
-                            color: blackColor,
+                            color: Colors.black,
                             fontWeight: FontWeight.w600,
                           ),
                           decoration: BoxDecoration(
-                            color: bgColor,
+                            color: Colors.white,
                             border: Border.all(color: Colors.grey),
                             borderRadius: BorderRadius.circular(8),
                             boxShadow: const [
@@ -140,14 +135,13 @@ class _OTPPageState extends State<OTPPage> {
                       ),
                     ),
                     const SizedBox(height: 40),
-                    // TEXT KIRIM ULANG
                     Center(
                       child: GestureDetector(
                         onTap: () => resendOtp(),
                         child: Text(
                           'Kirim Ulang (${_resendSeconds}s)',
                           style: GoogleFonts.poppins(
-                            color: _canResend ? blackColor : Colors.grey,
+                            color: _canResend ? Colors.black : Colors.grey,
                             fontSize: 18,
                             fontWeight: FontWeight.bold,
                           ),
@@ -158,7 +152,6 @@ class _OTPPageState extends State<OTPPage> {
                 ),
               ),
             ),
-            // BUTTON LANJUT
             const Spacer(),
             InkWell(
               onTap: () async {
@@ -182,7 +175,7 @@ class _OTPPageState extends State<OTPPage> {
                   child: Text(
                     "Lanjut",
                     style: GoogleFonts.poppins(
-                      color: whiteColor,
+                      color: Colors.white,
                       fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
@@ -205,26 +198,22 @@ class _OTPPageState extends State<OTPPage> {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      Get.to(const HomePage());
+      Get.back();
     } on FirebaseAuthException catch (e) {
       print(e.message.toString());
-      errorMessage(context, 'Code OTP Salah!');
-      startResendTimer();
+      // Handle error case
     }
   }
 
-  // Fungsi untuk mengatur dan memulai ulang timer
   void startResendTimer() {
     _canResend = false;
     _resendTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (_resendSeconds == 0) {
-        // Waktu ulang habis, izinkan pengguna mengirim ulang
         setState(() {
           _canResend = true;
         });
-        _resendTimer.cancel(); // Hentikan timer
+        _resendTimer.cancel();
       } else {
-        // Kurangi waktu ulang setiap detik
         setState(() {
           _resendSeconds--;
         });
@@ -232,41 +221,44 @@ class _OTPPageState extends State<OTPPage> {
     });
   }
 
-  // Fungsi untuk mengirim ulang OTP
   void resendOtp() async {
     if (_canResend) {
-      await Auth().submitWithPhoneNumber(
-        context,
-        phoneController.text,
-      );
-      setState(() {
-        _canResend = false;
-        _resendSeconds = 60;
-      });
-      startResendTimer();
+      try {
+        await FirebaseAuth.instance.verifyPhoneNumber(
+          phoneNumber: '+62${widget.phoneNumber}',
+          verificationCompleted: (PhoneAuthCredential credential) async {
+            await FirebaseAuth.instance.signInWithCredential(credential);
+            print('Verification completed automatically: $credential');
+          },
+          verificationFailed: (FirebaseAuthException e) {
+            print('Verification failed: ${e.message}');
+          },
+          codeSent: (String verificationId, int? resendToken) async {
+            print('Resending OTP...');
+            setState(() {
+              _canResend = false;
+              _resendSeconds = 60;
+            });
+            startResendTimer();
+            widget.verificationId = verificationId;
+          },
+          codeAutoRetrievalTimeout: (String verificationId) {
+            print('Auto retrieval timeout. Manually handle the timeout if needed.');
+          },
+          timeout: Duration(seconds: 60),
+          forceResendingToken: widget.verificationId.isNotEmpty
+              ? widget.resendToken
+              : null,
+        );
+      } catch (e) {
+        print('Error resending OTP: $e');
+      }
     }
   }
 
   @override
   void dispose() {
-    // Pastikan untuk membatalkan timer saat widget di-dispose
     _resendTimer.cancel();
     super.dispose();
   }
 }
-class AuthPhoneNumberState extends State<AuthPhoneNumber> {
-  static TextEditingController phoneController = TextEditingController();
-
-  // ...
-
-  static TextEditingController getPhoneController() {
-    return phoneController;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
-}
-

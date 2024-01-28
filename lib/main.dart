@@ -34,10 +34,10 @@ class MyApp extends StatelessWidget {
             useMaterial3: true,
           ),
           debugShowCheckedModeBanner: false,
-          home: snapshot.connectionState == ConnectionState.active
-              ? (snapshot.hasData ? const HomePage() : const AuthPhoneNumber())
-              : const SplashScreen(),
-          // home: const AuthPhoneNumber(),
+          // home: snapshot.connectionState == ConnectionState.active
+          //     ? (snapshot.hasData ? const HomePage() : const AuthPhoneNumber())
+          //     : const SplashScreen(),
+          home: const HomePage(),
         );
       },
     );
