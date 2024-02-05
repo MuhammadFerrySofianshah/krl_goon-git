@@ -173,7 +173,7 @@ class _OTPPageState extends State<OTPPage> {
                 ),
                 child: Center(
                   child: Text(
-                    "Lanjut",
+                    "Send",
                     style: GoogleFonts.poppins(
                       color: Colors.white,
                       fontSize: 16,
