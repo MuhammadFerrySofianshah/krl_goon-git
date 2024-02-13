@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -5,10 +8,54 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:krl_goon/colors.dart';
 import 'package:krl_goon/pages/home/profile/profile_page.dart';
+import 'package:krl_goon/pages/home/riwayat/riwayat.dart';
+import 'package:krl_goon/pages/home/tiket/tiket.dart';
+import 'package:krl_goon/widgets/widget.dart';
 
-class HomePage extends StatelessWidget {
+import 'bantuan/bantuan.dart';
+import 'isi-saldo/isi_saldo.dart';
+import 'rute/rute.dart';
+
+final List<String> imgList = [
+  "assets/images/tab-bar-1.jpg",
+  "assets/images/tab-bar-2.jpg",
+  "assets/images/tab-bar-3.jpg",
+  "assets/images/tab-bar-4.jpg",
+  "assets/images/tab-bar-5.jpg",
+];
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  bool isLoading = true;
+  int _current = 0;
+  final CarouselController _carouselController = CarouselController();
+
+  final List<Widget> imageSliders = imgList
+      .map(
+        (item) => Container(
+          margin: const EdgeInsets.all(5.0),
+          child: ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            child: Stack(
+              children: <Widget>[
+                Image.asset(
+                  item,
+                  fit: BoxFit.cover,
+                  width: 10000,
+                  height: 95,
+                ),
+              ],
+            ),
+          ),
+        ),
+      )
+      .toList();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,212 +64,20 @@ class HomePage extends StatelessWidget {
         child: SingleChildScrollView(
           child: Stack(
             children: [
-              ClipPath(
-                // custom clip
-                clipper: ClipPathClass(),
-                child: Container(
-                  height: 250,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Color(0xffFFC500), Color(0xffE6B200)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                      stops: [0.0, 2.0],
-                    ),
-                  ),
-                ),
-              ),
+              _ClipPath(),
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      children: [
-                        SvgPicture.asset('assets/svgs/isiSaldo-icon.svg'),
-                        const SizedBox(width: 5),
-                        Text(
-                          'Rp',
-                          style: GoogleFonts.poppins(
-                              color: grayColor,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
-                              shadows: <Shadow>[
-                                const Shadow(
-                                  offset: Offset(2.0, 2.0),
-                                  blurRadius: 3.0,
-                                  color: Color(0x5b3d3d3d),
-                                ),
-                              ]),
-                        ),
-                        const SizedBox(width: 5),
-                        Text(
-                          '100.000',
-                          style: GoogleFonts.poppins(
-                            color: blackColor,
-                            fontSize: 24,
-                            fontWeight: FontWeight.w500,
-                            shadows: <Shadow>[
-                              const Shadow(
-                                offset: Offset(2.0, 2.0),
-                                blurRadius: 3.0,
-                                color: Color(0x5b3d3d3d),
-                              ),
-                            ],
-                          ),
-                        ),
-                        const Spacer(),
-                        IconButton(
-                            onPressed: () => Get.to(const ProfilePage()),
-                            icon: SvgPicture.asset(
-                                'assets/svgs/profile-icon.svg')),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    SizedBox(
-                      width: 255,
-                      child: Text(
-                        'Selamat Datang,',
-                        style: GoogleFonts.poppins(
-                          color: whiteColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: 255,
-                      child: Text(
-                        'Pilihlah rute perjalanan Anda dan pesan tiket dengan mudah...',
-                        style: GoogleFonts.poppins(
-                          color: whiteColor,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 125,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: const LinearGradient(
-                                colors: [Color(0xffececec), Color(0xffDDDDDD)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight),
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(2, 2),
-                                blurRadius: 3,
-                                color: Color(0x5b3d3d3d),
-                              ),
-                            ],
-                          ),
-                           child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                          Image.asset("assets/images/iklan-home.png"),
-                          Image.asset("assets/images/iklan-home.png"),
-                          Image.asset("assets/images/iklan-home.png"),
-
-                        ]),
-                        ),
-                       
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    Stack(
-                      children: [
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          height: 85,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            gradient: const LinearGradient(
-                                colors: [Color(0xffececec), Color(0xffDDDDDD)],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight),
-                            boxShadow: const [
-                              BoxShadow(
-                                offset: Offset(2, 2),
-                                blurRadius: 3,
-                                color: Color(0x5b3d3d3d),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(25, 13, 25, 5),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                children: [
-                                  SvgPicture.asset("assets/svgs/rute-icon.svg"),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    "Rute",
-                                    style: GoogleFonts.poppins(
-                                      color: blackColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                      "assets/svgs/isiSaldo-icon.svg"),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    "Isi Saldo",
-                                    style: GoogleFonts.poppins(
-                                      color: blackColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                      "assets/svgs/riwayat-icon.svg"),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    "Riwayat",
-                                    style: GoogleFonts.poppins(
-                                      color: blackColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  SvgPicture.asset(
-                                      "assets/svgs/bantuan-icon.svg"),
-                                  const SizedBox(height: 6),
-                                  Text(
-                                    "Bantuan",
-                                    style: GoogleFonts.poppins(
-                                      color: blackColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                    _SaldoProfile(),
+                    wSizedBoxHeight(8),
+                    _SelamatDatangText(),
+                    _PilihRuteText(),
+                    wSizedBoxHeight(8),
+                    _boxFotoSilde(context),
+                    wSizedBoxHeight(20),
+                    _boxIcons(context),
                   ],
                 ),
               ),
@@ -232,8 +87,241 @@ class HomePage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.grey[300],
-        onPressed: () {},
+        onPressed: () => Get.to(const TiketPage()),
         child: SvgPicture.asset("assets/svgs/tiket-icon.svg"),
+      ),
+    );
+  }
+
+  _boxIcons(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 85,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: const LinearGradient(
+                colors: [Color(0xffececec), Color(0xffDDDDDD)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight),
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(2, 2),
+                blurRadius: 3,
+                color: Color(0x5b3d3d3d),
+              ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(25, 13, 25, 5),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              InkWell(
+                onTap: () => Get.to(const RutePage()),
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/svgs/rute-icon.svg"),
+                    wSizedBoxHeight(6),
+                    wText("Rute", blackColor, 14, FontWeight.w500)
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () => Get.to(const IsiSaldoPage()),
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/svgs/isiSaldo-icon.svg"),
+                    wSizedBoxHeight(6),
+                    wText("Isi Saldo", blackColor, 14, FontWeight.w500)
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () => Get.to(const RiwayatPage()),
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/svgs/riwayat-icon.svg"),
+                    wSizedBoxHeight(6),
+                    wText('Riwayat', blackColor, 14, FontWeight.w500)
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () => Get.to(const BantuanPage()),
+                child: Column(
+                  children: [
+                    SvgPicture.asset("assets/svgs/bantuan-icon.svg"),
+                    wSizedBoxHeight(6),
+                    wText('Bantuan', blackColor, 14, 
+                    FontWeight.w500)
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  _boxFotoSilde(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          height: 135,
+          // height: 375,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: const LinearGradient(
+                colors: [Color(0xffececec), Color(0xffDDDDDD)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight),
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(2, 2),
+                blurRadius: 3,
+                color: Color(0x5b3d3d3d),
+              ),
+            ],
+          ),
+          child: Column(children: [
+            Stack(children: [
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: CarouselSlider(
+                  items: imageSliders,
+                  carouselController: _carouselController,
+                  options: CarouselOptions(
+                      aspectRatio: 3,
+                      autoPlay: true,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      }),
+                ),
+              ),
+              Align(
+                alignment: Alignment.bottomRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 108, right: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: imgList.asMap().entries.map((entry) {
+                      return GestureDetector(
+                        onTap: () =>
+                            _carouselController.animateToPage(entry.key),
+                        child: Container(
+                          width: 10.0,
+                          height: 10.0,
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 8.0, horizontal: 3.0),
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: (Theme.of(context).brightness ==
+                                          Brightness.dark
+                                      ? Colors.white
+                                      : Colors.black)
+                                  .withOpacity(
+                                      _current == entry.key ? 0.9 : 0.4)),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ),
+            ]),
+          ]),
+        ),
+      ],
+    );
+  }
+
+  _PilihRuteText() {
+    return SizedBox(
+        width: 255,
+        child:
+            wText(
+                'Pilihlah rute perjalanan Anda dan pesan tiket dengan mudah...',
+                whiteColor,
+                14,
+                FontWeight.w400));
+  }
+
+  _SelamatDatangText() {
+    return SizedBox(
+        width: 255,
+        child: wText('Selamat Datang', whiteColor, 14, FontWeight.w500));
+  }
+
+  _SaldoProfile() {
+    return Row(
+      children: [
+        SvgPicture.asset('assets/svgs/isiSaldo-icon.svg'),
+        wSizedBoxWidth(5),
+        Text(
+          'Rp',
+          style: GoogleFonts.poppins(
+              color: grayColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              shadows: <Shadow>[
+                const Shadow(
+                  offset: Offset(2.0, 2.0),
+                  blurRadius: 3.0,
+                  color: Color(0x5b3d3d3d),
+                ),
+              ]
+              ),
+        ),
+        wSizedBoxWidth(5),
+        Text(
+          '100.000',
+          style: GoogleFonts.poppins(
+            color: blackColor,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            shadows: <Shadow>[
+              const Shadow(
+                offset: Offset(2.0, 2.0),
+                blurRadius: 3.0,
+                color: Color(0x5b3d3d3d),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Column(
+          children: [
+            InkWell(
+                onTap: () => Get.to(const ProfilePage()),
+                child: SvgPicture.asset('assets/svgs/profile-icon.svg')),
+                wText('Profile', whiteColor, 12, 
+                FontWeight.normal)
+          ],
+        ),
+      ],
+    );
+  }
+
+  _ClipPath() {
+    return ClipPath(
+      // custom clip
+      clipper: ClipPathClass(),
+      child: Container(
+        height: 250,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Color(0xffFFC500), Color(0xffE6B200)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0.0, 2.0],
+          ),
+        ),
       ),
     );
   }

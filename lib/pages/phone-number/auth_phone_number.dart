@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:krl_goon/pages/phone-number/otp_code.dart';
+import 'package:krl_goon/widgets/widget.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 import '../../colors.dart';
@@ -73,14 +74,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // TEXT SELAMAT DATANG
-                    Text(
-                      'Selamat Datang,',
-                      style: GoogleFonts.poppins(
-                        color: blackColor,
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
+                    wText('Selamat Datang,', blackColor, 18, FontWeight.w600),
                     RichText(
                       text: TextSpan(
                         text: 'Masukkan ',
@@ -109,7 +103,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 20),
+                    wSizedBoxHeight(20),
 
                     // FORM PHONE NUMBER
                     Container(
@@ -198,7 +192,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                         ],
                       ),
                     ),
-                    const SizedBox(height: 25),
+                    wSizedBoxHeight(25),
 
                     // TEXT MENYETUJUI
                     RichText(
@@ -243,8 +237,10 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
             ),
 // BUTTON LANJUT
             const Spacer(),
-            InkWell(
-              onTap: () async {
+            wButtonBottom(
+              context,
+              'Lanjut',
+              () async {
                 if (isPhoneValid) {
                   await Auth().submitWithPhoneNumber(
                     context,
@@ -255,30 +251,44 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                       context, 'Nomor HP harus terdiri dari minimal 9 angka.');
                 }
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                decoration: BoxDecoration(
-                    color: const Color(0xffFFC500),
-                    boxShadow: const [
-                      BoxShadow(
-                          color: Color(0xffc8c8c8),
-                          blurRadius: 10,
-                          offset: Offset(4, 6)),
-                    ],
-                    border: Border.all(color: Colors.black.withOpacity(0.13))),
-                child: Center(
-                  child: Text(
-                    "Lanjut",
-                    style: GoogleFonts.poppins(
-                      color: whiteColor,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            )
+
+            // InkWell(
+            //   onTap: () async {
+            //     if (isPhoneValid) {
+            //       await Auth().submitWithPhoneNumber(
+            //         context,
+            //         phoneController.text,
+            //       );
+            //     } else {
+            //       errorMessage(
+            //           context, 'Nomor HP harus terdiri dari minimal 9 angka.');
+            //     }
+            //   },
+            //   child: Container(
+            //     width: MediaQuery.of(context).size.width,
+            //     height: 55,
+            //     decoration: BoxDecoration(
+            //         color: const Color(0xffFFC500),
+            //         boxShadow: const [
+            //           BoxShadow(
+            //               color: Color(0xffc8c8c8),
+            //               blurRadius: 10,
+            //               offset: Offset(4, 6)),
+            //         ],
+            //         border: Border.all(color: Colors.black.withOpacity(0.13))),
+            //     child: Center(
+            //       child: Text(
+            //         "Lanjut",
+            //         style: GoogleFonts.poppins(
+            //           color: whiteColor,
+            //           fontSize: 16,
+            //           fontWeight: FontWeight.bold,
+            //         ),
+            //       ),
+            //     ),
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -286,7 +296,8 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
   }
 }
 
-// BACKEND
+/// BACKEND
+// AUTETIFIKASI
 class Auth {
   var isLogin = true;
   final formKey = GlobalKey<FormState>();
@@ -301,7 +312,7 @@ class Auth {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoadingAnimationWidget.hexagonDots(color: Colors.white, size: 50),
-              const SizedBox(height: 15),
+              wSizedBoxHeight(15),
               const Text(
                 'Mengirim kode OTP...',
                 style: TextStyle(
@@ -327,14 +338,16 @@ class Auth {
           },
           codeSent: (verificationId, resendCode) async {
             Get.to(
-              OTPPage(phoneNumber: phoneNumber, verificationId: verificationId,resendToken: resendCode),
+              OTPPage(
+                  phoneNumber: phoneNumber,
+                  verificationId: verificationId,
+                  resendToken: resendCode),
             );
           },
           timeout: const Duration(seconds: 60),
           codeAutoRetrievalTimeout: (String verificationId) {
             verificationId = verificationId;
           },
-          
         );
       } else {
         await FirebaseAuth.instance.signOut();
@@ -349,19 +362,11 @@ class Auth {
 void errorMessage(BuildContext context, String message) {
   showDialog(
 // Menghilangkan kemampuan menutup dialog dengan tap di luar dialog
-    barrierDismissible: false,
+    // barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: const Text(
-          'Error',
-          style: TextStyle(
-            fontSize: 20,
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-          textAlign: TextAlign.center,
-        ),
+        title: wText('Error', Colors.black, 20, FontWeight.bold),
         content: Text(
           message,
           style: const TextStyle(
@@ -380,14 +385,8 @@ void errorMessage(BuildContext context, String message) {
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 10),
               color: Colors.red,
-              child: const Center(
-                child: Text(
-                  'OK',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600),
-                ),
+              child: Center(
+                child: wText('OK', Colors.white, 18, FontWeight.w600),
               ),
             ),
           ),

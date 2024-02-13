@@ -4,6 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:krl_goon/pages/home/home_page.dart';
+import 'package:krl_goon/pages/phone-number/auth_phone_number.dart';
+import 'package:krl_goon/test.dart';
+import 'package:krl_goon/widgets/widget.dart';
 import 'package:pinput/pinput.dart';
 
 class OTPPage extends StatefulWidget {
@@ -73,40 +77,20 @@ class _OTPPageState extends State<OTPPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const SizedBox(height: 10),
-                    Text(
-                      'Kode OTP telah terkirim ke nomor:',
-                      style: GoogleFonts.poppins(
-                        color: Colors.black,
-                        fontSize: 18,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                    wSizedBoxHeight(10),
+                    wText('Kode OTP telah terkirim ke nomor:', Colors.black, 18, FontWeight.normal),
                     Row(
                       children: [
-                        Text(
-                          "+62${widget.phoneNumber}",
-                          style: GoogleFonts.poppins(
-                            color: Colors.black,
-                            fontSize: 20,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const SizedBox(width: 10),
+                        wText( "+62${widget.phoneNumber}",  Colors.black, 20, FontWeight.w600),
+                        wSizedBoxWidth(10),
                         GestureDetector(
                           onTap: () => Get.back(),
-                          child: Text(
-                            "Ganti",
-                            style: GoogleFonts.poppins(
-                              fontSize: 20,
-                              fontWeight: FontWeight.normal,
-                              color: Colors.amber,
-                            ),
-                          ),
+                          child:
+                          wText('Ganti', Colors.amber, 20, FontWeight.normal)
                         ),
                       ],
                     ),
-                    const SizedBox(height: 30),
+                    wSizedBoxHeight(30),
                     Center(
                       child: Pinput(
                         controller: otpController,
@@ -134,61 +118,37 @@ class _OTPPageState extends State<OTPPage> {
                         ),
                       ),
                     ),
-                    const SizedBox(height: 40),
+                    wSizedBoxHeight(40),
                     Center(
                       child: GestureDetector(
-                        onTap: () => resendOtp(),
-                        child: Text(
-                          'Kirim Ulang (${_resendSeconds}s)',
-                          style: GoogleFonts.poppins(
-                            color: _canResend ? Colors.black : Colors.grey,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+                          onTap: () => resendOtp(),
+                          child: wText(
+                              'Kirim Ulang (${_resendSeconds}s)',
+                              _canResend ? Colors.black : Colors.grey,
+                              18,
+                              FontWeight.bold)
                           ),
-                        ),
-                      ),
                     ),
                   ],
                 ),
               ),
             ),
             const Spacer(),
-            InkWell(
-              onTap: () async {
+            wButtonBottom(
+              context,
+              'Send',
+              () async {
                 await verifyOtp();
               },
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 55,
-                decoration: BoxDecoration(
-                  color: const Color(0xffFFC500),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Color(0xffc8c8c8),
-                      blurRadius: 10,
-                      offset: Offset(4, 6),
-                    ),
-                  ],
-                  border: Border.all(color: Colors.black.withOpacity(0.13)),
-                ),
-                child: Center(
-                  child: Text(
-                    "Send",
-                    style: GoogleFonts.poppins(
-                      color: Colors.white,
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ),
-            ),
+            )
           ],
         ),
       ),
     );
   }
 
+  /// BACKEND
+// VERIFY OTP
   Future<void> verifyOtp() async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -198,16 +158,18 @@ class _OTPPageState extends State<OTPPage> {
 
       await FirebaseAuth.instance.signInWithCredential(credential);
 
-      Get.back();
+      Get.to(const HomePage());
     } on FirebaseAuthException catch (e) {
       print(e.message.toString());
+      errorMessage(context, 'Code OTP salah.');
       // Handle error case
     }
   }
 
+// TIMER
   void startResendTimer() {
     _canResend = false;
-    _resendTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (_resendSeconds == 0) {
         setState(() {
           _canResend = true;
@@ -221,6 +183,7 @@ class _OTPPageState extends State<OTPPage> {
     });
   }
 
+// RESEND OTP
   void resendOtp() async {
     if (_canResend) {
       try {
@@ -243,12 +206,12 @@ class _OTPPageState extends State<OTPPage> {
             widget.verificationId = verificationId;
           },
           codeAutoRetrievalTimeout: (String verificationId) {
-            print('Auto retrieval timeout. Manually handle the timeout if needed.');
+            print(
+                'Auto retrieval timeout. Manually handle the timeout if needed.');
           },
-          timeout: Duration(seconds: 60),
-          forceResendingToken: widget.verificationId.isNotEmpty
-              ? widget.resendToken
-              : null,
+          timeout: const Duration(seconds: 60),
+          forceResendingToken:
+              widget.verificationId.isNotEmpty ? widget.resendToken : null,
         );
       } catch (e) {
         print('Error resending OTP: $e');
