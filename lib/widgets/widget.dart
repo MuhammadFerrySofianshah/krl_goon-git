@@ -1,7 +1,28 @@
 import 'package:flutter/material.dart';
+
+
 import 'package:google_fonts/google_fonts.dart';
 
 import '../colors.dart';
+
+/// Nav Bar
+Widget wAppBar(String text, VoidCallback onPressed) {
+  return Container(
+    margin: const EdgeInsets.only(left: 8,top: 5),
+    child: Row(
+      children: [
+        IconButton(
+            onPressed: onPressed, icon: const Icon(Icons.arrow_back_ios)),
+        wText(
+          text,
+          blackColor,
+          18,
+          FontWeight.w500,
+        ),
+      ],
+    ),
+  );
+}
 
 /// Widget Text
 Widget wText(String text ,Color color ,double fontSize,FontWeight fontWeight) {
@@ -25,7 +46,15 @@ Widget wSizedBoxWidth(double width) {
   return SizedBox(width: width);
 }
 
+/// Navigator Push
+ wPush(context, WidgetBuilder page) {
+  return Navigator.push(context, MaterialPageRoute(builder: page));
+}
 
+/// Navigator Off
+ wOff(BuildContext context, WidgetBuilder page) {
+  return Navigator.pushReplacement(context, MaterialPageRoute(builder: page));
+}
 /// Button Bawah
 Widget wButtonBottom(context, String textButton, VoidCallback onTap) {
   return InkWell(
@@ -43,14 +72,14 @@ Widget wButtonBottom(context, String textButton, VoidCallback onTap) {
       child: Center(
         child: Text(
           textButton,
+      
           style: GoogleFonts.poppins(
             color: whiteColor,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),
-        ),
+        
       ),
-    ),
-  );
+    ) ));
+  
 }
-

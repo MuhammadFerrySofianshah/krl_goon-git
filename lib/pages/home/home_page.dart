@@ -1,15 +1,15 @@
-import 'dart:async';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:convex_bottom_bar/convex_bottom_bar.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:krl_goon/colors.dart';
+import 'package:krl_goon/pages/home/inbox/inbox-page.dart';
 import 'package:krl_goon/pages/home/profile/profile_page.dart';
 import 'package:krl_goon/pages/home/riwayat/riwayat.dart';
-import 'package:krl_goon/pages/home/tiket/tiket.dart';
+import 'package:krl_goon/pages/home/tiket/tiket_kosong.dart';
 import 'package:krl_goon/widgets/widget.dart';
 
 import 'bantuan/bantuan.dart';
@@ -34,6 +34,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   bool isLoading = true;
   int _current = 0;
+  int _currentIndexNavBar = 0;
+
   final CarouselController _carouselController = CarouselController();
 
   final List<Widget> imageSliders = imgList
@@ -58,9 +60,8 @@ class _HomePageState extends State<HomePage> {
       .toList();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: bgColor,
-      body: SafeArea(
+    List<Widget> pages = [
+      SafeArea(
         child: SingleChildScrollView(
           child: Stack(
             children: [
@@ -85,15 +86,252 @@ class _HomePageState extends State<HomePage> {
           ),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.grey[300],
-        onPressed: () => Get.to(const TiketPage()),
-        child: SvgPicture.asset("assets/svgs/tiket-icon.svg"),
-      ),
+      const RiwayatPage(),
+      const TiketKosongPage(),
+      const BantuanPage(),
+      const ProfilePage(),
+    ];
+    return Scaffold(
+      backgroundColor: bgColor,
+      bottomNavigationBar: _bottomNavBar(),
+      body: pages[_currentIndexNavBar],
+    );
+  }
+
+  ConvexAppBar _bottomNavBar() {
+    return ConvexAppBar(
+      backgroundColor: bgColor,
+      style: TabStyle.fixed,
+      activeColor: yellowColor,
+      color: const Color(0xff8596A0),
+      items: [
+        const TabItem(
+            icon: Icons.home_outlined, activeIcon: Icons.home, title: 'Home'),
+        const TabItem(
+            icon: Icons.history_outlined,
+            activeIcon: Icons.history,
+            title: 'Riwayat'),
+        TabItem(
+            icon: Icon(
+              Icons.qr_code_scanner,
+              color: yellowColor,
+              size: 40,
+            ),
+            title: 'Tiket'),
+        const TabItem(
+            icon: Icons.help_outline, activeIcon: Icons.help, title: 'Bantuan'),
+        const TabItem(
+            icon: Icons.person_outline_outlined,
+            activeIcon: Icons.person,
+            title: 'Akun Saya'),
+      ],
+      initialActiveIndex: 0,
+      onTap: (int i) {
+        setState(() {
+          _currentIndexNavBar = i;
+        });
+      },
     );
   }
 
   _boxIcons(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
+      width: MediaQuery.of(context).size.width,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        gradient: const LinearGradient(
+            colors: [Color(0xffececec), Color(0xffDDDDDD)],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight),
+        boxShadow: const [
+          BoxShadow(
+            offset: Offset(2, 2),
+            blurRadius: 3,
+            color: Color(0x5b3d3d3d),
+          ),
+        ],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          InkWell(
+            onTap: () => Get.to(const RutePage()),
+            child: Column(
+              children: [
+                SvgPicture.asset("assets/svgs/rute-icon.svg"),
+                wSizedBoxHeight(6),
+                wText("Rute", blackColor, 12, FontWeight.w500)
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () => Get.to(const IsiSaldoPage()),
+            child: Column(
+              children: [
+                SvgPicture.asset("assets/svgs/isiSaldo-icon.svg"),
+                wSizedBoxHeight(6),
+                wText("Isi Saldo", blackColor, 12, FontWeight.w500)
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () => Get.to(const RiwayatPage()),
+            child: Column(
+              children: [
+                SvgPicture.asset("assets/svgs/jadwal-kereta-icon.svg"),
+                wSizedBoxHeight(6),
+                wText('Jadwal Kereta', blackColor, 12, FontWeight.w500)
+              ],
+            ),
+          ),
+          InkWell(
+            onTap: () => Get.to(const BantuanPage()),
+            child: Column(
+              children: [
+                SvgPicture.asset("assets/svgs/posisi-kereta-icon.svg"),
+                wSizedBoxHeight(6),
+                wText('Posisi Kereta', blackColor, 12, FontWeight.w500)
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _boxFotoSilde(BuildContext context) {
+    return Stack(
+      children: [
+        Container(
+          width: MediaQuery.of(context).size.width,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            gradient: const LinearGradient(
+                colors: [Color(0xffececec), Color(0xffDDDDDD)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight),
+            boxShadow: const [
+              BoxShadow(
+                offset: Offset(2, 2),
+                blurRadius: 3,
+                color: Color(0x5b3d3d3d),
+              ),
+            ],
+          ),
+          child: Column(children: [
+            Stack(children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: CarouselSlider(
+                  items: imageSliders,
+                  carouselController: _carouselController,
+                  options: CarouselOptions(
+                      aspectRatio: 3,
+                      autoPlay: true,
+                      onPageChanged: (index, reason) {
+                        setState(() {
+                          _current = index;
+                        });
+                      }),
+                ),
+              ),
+              Positioned(
+                left: 280,
+                top: 110,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: imgList.asMap().entries.map((entry) {
+                    return GestureDetector(
+                      onTap: () =>
+                          _carouselController.animateToPage(entry.key),
+                      child: Container(
+                        width: 10.0,
+                        height: 10.0,
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 8.0, horizontal: 3.0),
+                        decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: (Theme.of(context).brightness ==
+                                        Brightness.dark
+                                    ? Colors.white
+                                    : Colors.black)
+                                .withOpacity(
+                                    _current == entry.key ? 0.9 : 0.4)),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ]),
+          ]),
+        ),
+      ],
+    );
+  }
+
+  _PilihRuteText() {
+    return SizedBox(
+        width: 255,
+        child: wText('Klik Rute untuk memesan tiket...', whiteColor, 14,
+            FontWeight.w400));
+  }
+
+  _SelamatDatangText() {
+    return SizedBox(
+        width: 255,
+        child: wText('Selamat Datang', whiteColor, 14, FontWeight.w500));
+  }
+
+  _SaldoProfile() {
+    return Row(
+      children: [
+        SvgPicture.asset('assets/svgs/jumlahSaldo-icon.svg'),
+        wSizedBoxWidth(5),
+        Text(
+          'Rp',
+          style: GoogleFonts.poppins(
+              color: grayColor,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+              shadows: <Shadow>[
+                const Shadow(
+                  offset: Offset(2.0, 2.0),
+                  blurRadius: 3.0,
+                  color: Color(0x5b3d3d3d),
+                ),
+              ]),
+        ),
+        wSizedBoxWidth(5),
+        Text(
+          '100.000',
+          style: GoogleFonts.poppins(
+            color: blackColor,
+            fontSize: 24,
+            fontWeight: FontWeight.w500,
+            shadows: <Shadow>[
+              const Shadow(
+                offset: Offset(2.0, 2.0),
+                blurRadius: 3.0,
+                color: Color(0x5b3d3d3d),
+              ),
+            ],
+          ),
+        ),
+        const Spacer(),
+        Column(
+          children: [
+            InkWell(
+                onTap: () => Get.to(const InboxPage()),
+                child: Icon(Icons.mail_outline_sharp,size: 25,color: whiteColor,)),
+            wText('Inbox', whiteColor, 12, FontWeight.normal)
+          ],
+        ),
+      ],
+    );
+  }
+
+  boxIcons(BuildContext context) {
     return Stack(
       children: [
         Container(
@@ -167,146 +405,146 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  _boxFotoSilde(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          width: MediaQuery.of(context).size.width,
-          height: 135,
-          // height: 375,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            gradient: const LinearGradient(
-                colors: [Color(0xffececec), Color(0xffDDDDDD)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight),
-            boxShadow: const [
-              BoxShadow(
-                offset: Offset(2, 2),
-                blurRadius: 3,
-                color: Color(0x5b3d3d3d),
-              ),
-            ],
-          ),
-          child: Column(children: [
-            Stack(children: [
-              Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: CarouselSlider(
-                  items: imageSliders,
-                  carouselController: _carouselController,
-                  options: CarouselOptions(
-                      aspectRatio: 3,
-                      autoPlay: true,
-                      onPageChanged: (index, reason) {
-                        setState(() {
-                          _current = index;
-                        });
-                      }),
-                ),
-              ),
-              Align(
-                alignment: Alignment.bottomRight,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 108, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: imgList.asMap().entries.map((entry) {
-                      return GestureDetector(
-                        onTap: () =>
-                            _carouselController.animateToPage(entry.key),
-                        child: Container(
-                          width: 10.0,
-                          height: 10.0,
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 8.0, horizontal: 3.0),
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: (Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? Colors.white
-                                      : Colors.black)
-                                  .withOpacity(
-                                      _current == entry.key ? 0.9 : 0.4)),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-                ),
-              ),
-            ]),
-          ]),
-        ),
-      ],
-    );
-  }
+  // _boxFotoSilde(BuildContext context) {
+  //   return Stack(
+  //     children: [
+  //       Container(
+  //         width: MediaQuery.of(context).size.width,
+  //         height: 135,
+  //         // height: 375,
+  //         decoration: BoxDecoration(
+  //           borderRadius: BorderRadius.circular(10),
+  //           gradient: const LinearGradient(
+  //               colors: [Color(0xffececec), Color(0xffDDDDDD)],
+  //               begin: Alignment.topLeft,
+  //               end: Alignment.bottomRight),
+  //           boxShadow: const [
+  //             BoxShadow(
+  //               offset: Offset(2, 2),
+  //               blurRadius: 3,
+  //               color: Color(0x5b3d3d3d),
+  //             ),
+  //           ],
+  //         ),
+  //         child: Column(children: [
+  //           Stack(children: [
+  //             Padding(
+  //               padding: EdgeInsets.only(top: 10),
+  //               child: CarouselSlider(
+  //                 items: imageSliders,
+  //                 carouselController: _carouselController,
+  //                 options: CarouselOptions(
+  //                     aspectRatio: 3,
+  //                     autoPlay: true,
+  //                     onPageChanged: (index, reason) {
+  //                       setState(() {
+  //                         _current = index;
+  //                       });
+  //                     }),
+  //               ),
+  //             ),
+  //             Align(
+  //               alignment: Alignment.bottomRight,
+  //               child: Padding(
+  //                 padding: const EdgeInsets.only(top: 108, right: 15),
+  //                 child: Row(
+  //                   mainAxisAlignment: MainAxisAlignment.end,
+  //                   children: imgList.asMap().entries.map((entry) {
+  //                     return GestureDetector(
+  //                       onTap: () =>
+  //                           _carouselController.animateToPage(entry.key),
+  //                       child: Container(
+  //                         width: 10.0,
+  //                         height: 10.0,
+  //                         margin: const EdgeInsets.symmetric(
+  //                             vertical: 8.0, horizontal: 3.0),
+  //                         decoration: BoxDecoration(
+  //                             shape: BoxShape.circle,
+  //                             color: (Theme.of(context).brightness ==
+  //                                         Brightness.dark
+  //                                     ? Colors.white
+  //                                     : Colors.black)
+  //                                 .withOpacity(
+  //                                     _current == entry.key ? 0.9 : 0.4)),
+  //                       ),
+  //                     );
+  //                   }).toList(),
+  //                 ),
+  //               ),
+  //             ),
+  //           ]),
+  //         ]),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  _PilihRuteText() {
-    return SizedBox(
-        width: 255,
-        child:
-            wText(
-                'Pilihlah rute perjalanan Anda dan pesan tiket dengan mudah...',
-                whiteColor,
-                14,
-                FontWeight.w400));
-  }
+  // _PilihRuteText() {
+  //   return SizedBox(
+  //       width: 255,
+  //       child:
+  //           wText(
+  //               'Pilihlah rute perjalanan Anda dan pesan tiket dengan mudah...',
+  //               whiteColor,
+  //               14,
+  //               FontWeight.w400));
+  // }
 
-  _SelamatDatangText() {
-    return SizedBox(
-        width: 255,
-        child: wText('Selamat Datang', whiteColor, 14, FontWeight.w500));
-  }
+  // _SelamatDatangText() {
+  //   return SizedBox(
+  //       width: 255,
+  //       child: wText('Selamat Datang', whiteColor, 14, FontWeight.w500));
+  // }
 
-  _SaldoProfile() {
-    return Row(
-      children: [
-        SvgPicture.asset('assets/svgs/isiSaldo-icon.svg'),
-        wSizedBoxWidth(5),
-        Text(
-          'Rp',
-          style: GoogleFonts.poppins(
-              color: grayColor,
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              shadows: <Shadow>[
-                const Shadow(
-                  offset: Offset(2.0, 2.0),
-                  blurRadius: 3.0,
-                  color: Color(0x5b3d3d3d),
-                ),
-              ]
-              ),
-        ),
-        wSizedBoxWidth(5),
-        Text(
-          '100.000',
-          style: GoogleFonts.poppins(
-            color: blackColor,
-            fontSize: 24,
-            fontWeight: FontWeight.w500,
-            shadows: <Shadow>[
-              const Shadow(
-                offset: Offset(2.0, 2.0),
-                blurRadius: 3.0,
-                color: Color(0x5b3d3d3d),
-              ),
-            ],
-          ),
-        ),
-        const Spacer(),
-        Column(
-          children: [
-            InkWell(
-                onTap: () => Get.to(const ProfilePage()),
-                child: SvgPicture.asset('assets/svgs/profile-icon.svg')),
-                wText('Profile', whiteColor, 12, 
-                FontWeight.normal)
-          ],
-        ),
-      ],
-    );
-  }
+  // _SaldoProfile() {
+  //   return Row(
+  //     children: [
+  //       SvgPicture.asset('assets/svgs/isiSaldo-icon.svg'),
+  //       wSizedBoxWidth(5),
+  //       Text(
+  //         'Rp',
+  //         style: GoogleFonts.poppins(
+  //             color: grayColor,
+  //             fontSize: 12,
+  //             fontWeight: FontWeight.w500,
+  //             shadows: <Shadow>[
+  //               const Shadow(
+  //                 offset: Offset(2.0, 2.0),
+  //                 blurRadius: 3.0,
+  //                 color: Color(0x5b3d3d3d),
+  //               ),
+  //             ]
+  //             ),
+  //       ),
+  //       wSizedBoxWidth(5),
+  //       Text(
+  //         '100.000',
+  //         style: GoogleFonts.poppins(
+  //           color: blackColor,
+  //           fontSize: 24,
+  //           fontWeight: FontWeight.w500,
+  //           shadows: <Shadow>[
+  //             const Shadow(
+  //               offset: Offset(2.0, 2.0),
+  //               blurRadius: 3.0,
+  //               color: Color(0x5b3d3d3d),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //       const Spacer(),
+  //       Column(
+  //         children: [
+  //           InkWell(
+  //               onTap: () => Get.to(const ProfilePage()),
+  //               child: SvgPicture.asset('assets/svgs/profile-icon.svg')),
+  //               wText('Profile', whiteColor, 12, 
+  //               FontWeight.normal)
+  //         ],
+  //       ),
+  //     ],
+  //   );
+  // }
 
   _ClipPath() {
     return ClipPath(

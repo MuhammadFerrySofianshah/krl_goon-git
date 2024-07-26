@@ -16,7 +16,7 @@ class AuthPhoneNumber extends StatefulWidget {
   AuthPhoneNumberState createState() => AuthPhoneNumberState();
 }
 
-final _formKey1 = GlobalKey<FormState>();
+final formKey1 = GlobalKey<FormState>();
 
 class AuthPhoneNumberState extends State<AuthPhoneNumber> {
   TextEditingController phoneController = TextEditingController();
@@ -33,6 +33,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     phoneController.selection = TextSelection.fromPosition(
         TextPosition(offset: phoneController.text.length));
@@ -129,11 +130,9 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                             textFieldController: phoneController,
                             onInputChanged: (PhoneNumber phoneNumber) {
                               // Callback ketika nomor telepon berubah
-                              print(phoneNumber.phoneNumber);
                             },
                             onInputValidated: (bool value) {
                               // Callback ketika validasi nomor telepon berubah
-                              print(value);
                             },
                             formatInput: false,
                             selectorConfig: const SelectorConfig(
@@ -339,9 +338,12 @@ class Auth {
           codeSent: (verificationId, resendCode) async {
             Get.to(
               OTPPage(
-                  phoneNumber: phoneNumber,
-                  verificationId: verificationId,
-                  resendToken: resendCode),
+                  vPhoneNumber: phoneNumber,
+                  vVerificationId: verificationId,
+                  vResendToken: resendCode),
+                  // phoneNumber: phoneNumber,
+                  // verificationId: verificationId,
+                  // resendToken: resendCode),
             );
           },
           timeout: const Duration(seconds: 60),
@@ -366,6 +368,7 @@ void errorMessage(BuildContext context, String message) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
+        // title: Center(child: wText('Error', Colors.black, 20, FontWeight.bold)),
         title: wText('Error', Colors.black, 20, FontWeight.bold),
         content: Text(
           message,
