@@ -2,9 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:krl_goon/pages/home/home_page.dart';
+import 'package:krl_goon/pages/home/rute/rute.dart';
 import 'package:krl_goon/pages/phone-number/auth_phone_number.dart';
 import 'package:krl_goon/pages/splash/splashScreen_page.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:krl_goon/test.dart';
+import 'package:krl_goon/test.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -32,7 +35,8 @@ class MyApp extends StatelessWidget {
           // home: snapshot.connectionState == ConnectionState.active
           //     ? (snapshot.hasData ? const HomePage() : const AuthPhoneNumber())
           //     : const SplashScreen(),
-          home: const SplashScreen(),
+          // home: const SplashScreen(),
+          home: const RutePage(),
         );
       },
     );

@@ -21,7 +21,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
           child: SingleChildScrollView(
         child: Column(
           children: [
-            wAppBar('Riwayat', () => Get.back()),
+            appBarWidget('Riwayat', () => Get.back()),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
               child: Column(
@@ -30,7 +30,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      wText(
+                      textWidget(
                         'Perjalanan Terakhir',
                         blackColor,
                         16,
@@ -62,24 +62,24 @@ class _RiwayatPageState extends State<RiwayatPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             SvgPicture.asset('assets/svgs/riwayat-list-icon.svg'),
-            wSizedBoxWidth(9),
+            sizedBoxWidthWidget(9),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  wText(
+                  textWidget(
                     'Stasiun Bekasi',
                     blackColor,
                     12,
                     FontWeight.w500,
                   ),
-                  wText(
+                  textWidget(
                     'Stasiun Manggarai',
                     blackColor,
                     12,
                     FontWeight.w500,
                   ),
-                  wText(
+                  textWidget(
                     '11 Nov 2023',
                     blackColor,
                     10,
@@ -95,13 +95,13 @@ class _RiwayatPageState extends State<RiwayatPage> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      wText(
+                      textWidget(
                         '-Rp10.000',
                         blackColor,
                         14,
                         FontWeight.w500,
                       ),
-                      wSizedBoxWidth(9),
+                      sizedBoxWidthWidget(9),
                       const Icon(
                         Icons.arrow_forward_ios,
                         color: Colors.black38,
@@ -109,7 +109,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
                       )
                     ],
                   ),
-                  wText(
+                  textWidget(
                     'Berhasil',
                     yellowColor,
                     12,
@@ -120,7 +120,7 @@ class _RiwayatPageState extends State<RiwayatPage> {
             ),
           ],
         ),
-        wSizedBoxWidth(10),
+        sizedBoxWidthWidget(10),
       ],
       // appBar: AppBar(
       //   title: Text(

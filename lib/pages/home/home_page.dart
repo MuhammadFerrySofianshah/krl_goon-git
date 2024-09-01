@@ -72,12 +72,12 @@ class _HomePageState extends State<HomePage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     _SaldoProfile(),
-                    wSizedBoxHeight(8),
+                    sizedBoxHeightWidget(8),
                     _SelamatDatangText(),
                     _PilihRuteText(),
-                    wSizedBoxHeight(8),
+                    sizedBoxHeightWidget(8),
                     _boxFotoSilde(context),
-                    wSizedBoxHeight(20),
+                    sizedBoxHeightWidget(20),
                     _boxIcons(context),
                   ],
                 ),
@@ -146,8 +146,8 @@ class _HomePageState extends State<HomePage> {
             end: Alignment.bottomRight),
         boxShadow: const [
           BoxShadow(
-            offset: Offset(2, 2),
-            blurRadius: 3,
+            offset: Offset(4, 4),
+            blurRadius: 10,
             color: Color(0x5b3d3d3d),
           ),
         ],
@@ -160,8 +160,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 SvgPicture.asset("assets/svgs/rute-icon.svg"),
-                wSizedBoxHeight(6),
-                wText("Rute", blackColor, 12, FontWeight.w500)
+                sizedBoxHeightWidget(6),
+                textWidget("Rute", blackColor, 12, FontWeight.w500)
               ],
             ),
           ),
@@ -170,8 +170,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 SvgPicture.asset("assets/svgs/isiSaldo-icon.svg"),
-                wSizedBoxHeight(6),
-                wText("Isi Saldo", blackColor, 12, FontWeight.w500)
+                sizedBoxHeightWidget(6),
+                textWidget("Isi Saldo", blackColor, 12, FontWeight.w500)
               ],
             ),
           ),
@@ -180,8 +180,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 SvgPicture.asset("assets/svgs/jadwal-kereta-icon.svg"),
-                wSizedBoxHeight(6),
-                wText('Jadwal Kereta', blackColor, 12, FontWeight.w500)
+                sizedBoxHeightWidget(6),
+                textWidget('Jadwal Kereta', blackColor, 12, FontWeight.w500)
               ],
             ),
           ),
@@ -190,8 +190,8 @@ class _HomePageState extends State<HomePage> {
             child: Column(
               children: [
                 SvgPicture.asset("assets/svgs/posisi-kereta-icon.svg"),
-                wSizedBoxHeight(6),
-                wText('Posisi Kereta', blackColor, 12, FontWeight.w500)
+                sizedBoxHeightWidget(6),
+                textWidget('Posisi Kereta', blackColor, 12, FontWeight.w500)
               ],
             ),
           ),
@@ -273,21 +273,21 @@ class _HomePageState extends State<HomePage> {
   _PilihRuteText() {
     return SizedBox(
         width: 255,
-        child: wText('Klik Rute untuk memesan tiket...', whiteColor, 14,
+        child: textWidget('Klik Rute untuk memesan tiket...', whiteColor, 14,
             FontWeight.w400));
   }
 
   _SelamatDatangText() {
     return SizedBox(
         width: 255,
-        child: wText('Selamat Datang', whiteColor, 14, FontWeight.w500));
+        child: textWidget('Selamat Datang', whiteColor, 14, FontWeight.w500));
   }
 
   _SaldoProfile() {
     return Row(
       children: [
         SvgPicture.asset('assets/svgs/jumlahSaldo-icon.svg'),
-        wSizedBoxWidth(5),
+        sizedBoxWidthWidget(5),
         Text(
           'Rp',
           style: GoogleFonts.poppins(
@@ -302,7 +302,7 @@ class _HomePageState extends State<HomePage> {
                 ),
               ]),
         ),
-        wSizedBoxWidth(5),
+        sizedBoxWidthWidget(5),
         Text(
           '100.000',
           style: GoogleFonts.poppins(
@@ -324,7 +324,7 @@ class _HomePageState extends State<HomePage> {
             InkWell(
                 onTap: () => Get.to(const InboxPage()),
                 child: Icon(Icons.mail_outline_sharp,size: 25,color: whiteColor,)),
-            wText('Inbox', whiteColor, 12, FontWeight.normal)
+            textWidget('Inbox', whiteColor, 12, FontWeight.normal)
           ],
         ),
       ],
@@ -362,8 +362,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     SvgPicture.asset("assets/svgs/rute-icon.svg"),
-                    wSizedBoxHeight(6),
-                    wText("Rute", blackColor, 14, FontWeight.w500)
+                    sizedBoxHeightWidget(6),
+                    textWidget("Rute", blackColor, 14, FontWeight.w500)
                   ],
                 ),
               ),
@@ -372,8 +372,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     SvgPicture.asset("assets/svgs/isiSaldo-icon.svg"),
-                    wSizedBoxHeight(6),
-                    wText("Isi Saldo", blackColor, 14, FontWeight.w500)
+                    sizedBoxHeightWidget(6),
+                    textWidget("Isi Saldo", blackColor, 14, FontWeight.w500)
                   ],
                 ),
               ),
@@ -382,8 +382,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     SvgPicture.asset("assets/svgs/riwayat-icon.svg"),
-                    wSizedBoxHeight(6),
-                    wText('Riwayat', blackColor, 14, FontWeight.w500)
+                    sizedBoxHeightWidget(6),
+                    textWidget('Riwayat', blackColor, 14, FontWeight.w500)
                   ],
                 ),
               ),
@@ -392,8 +392,8 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     SvgPicture.asset("assets/svgs/bantuan-icon.svg"),
-                    wSizedBoxHeight(6),
-                    wText('Bantuan', blackColor, 14, 
+                    sizedBoxHeightWidget(6),
+                    textWidget('Bantuan', blackColor, 14, 
                     FontWeight.w500)
                   ],
                 ),
@@ -483,7 +483,7 @@ class _HomePageState extends State<HomePage> {
   //   return SizedBox(
   //       width: 255,
   //       child:
-  //           wText(
+  //           textWidget(
   //               'Pilihlah rute perjalanan Anda dan pesan tiket dengan mudah...',
   //               whiteColor,
   //               14,
@@ -493,14 +493,14 @@ class _HomePageState extends State<HomePage> {
   // _SelamatDatangText() {
   //   return SizedBox(
   //       width: 255,
-  //       child: wText('Selamat Datang', whiteColor, 14, FontWeight.w500));
+  //       child: textWidget('Selamat Datang', whiteColor, 14, FontWeight.w500));
   // }
 
   // _SaldoProfile() {
   //   return Row(
   //     children: [
   //       SvgPicture.asset('assets/svgs/isiSaldo-icon.svg'),
-  //       wSizedBoxWidth(5),
+  //       sizedBoxWidthWidget(5),
   //       Text(
   //         'Rp',
   //         style: GoogleFonts.poppins(
@@ -516,7 +516,7 @@ class _HomePageState extends State<HomePage> {
   //             ]
   //             ),
   //       ),
-  //       wSizedBoxWidth(5),
+  //       sizedBoxWidthWidget(5),
   //       Text(
   //         '100.000',
   //         style: GoogleFonts.poppins(
@@ -538,7 +538,7 @@ class _HomePageState extends State<HomePage> {
   //           InkWell(
   //               onTap: () => Get.to(const ProfilePage()),
   //               child: SvgPicture.asset('assets/svgs/profile-icon.svg')),
-  //               wText('Profile', whiteColor, 12, 
+  //               textWidget('Profile', whiteColor, 12, 
   //               FontWeight.normal)
   //         ],
   //       ),

@@ -22,7 +22,7 @@ class _TiketAdaPageState extends State<TiketAdaPage> {
         child: SingleChildScrollView(
           child: Column(
             children: [
-                          wAppBar('Tiket', () => Get.back()),
+                          appBarWidget('Tiket', () => Get.back()),
 
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -43,33 +43,33 @@ class _TiketAdaPageState extends State<TiketAdaPage> {
                           child: Icon(Icons.qr_code_scanner,size: 50,))
                         ]
                       ),
-                      wSizedBoxHeight(15),
-                      wText(
+                      sizedBoxHeightWidget(15),
+                      textWidget(
                         'Tiket Anda',
                         blackColor,
                         22,
                         FontWeight.bold,
                       ),
-                      wSizedBoxHeight(30),
-                      wText(
+                      sizedBoxHeightWidget(30),
+                      textWidget(
                         'Stasiun Bekasi',
                         blackColor,
                         16,
                         FontWeight.normal,
                       ),
-                      wSizedBoxHeight(15),
+                      sizedBoxHeightWidget(15),
                       const Icon(
                         Icons.arrow_circle_down,
                         size: 60,
                       ),
-                      wSizedBoxHeight(15),
-                      wText(
+                      sizedBoxHeightWidget(15),
+                      textWidget(
                         'Stasiun Manggarai',
                         blackColor,
                         16,
                         FontWeight.normal,
                       ),
-                      wSizedBoxHeight(200),
+                      sizedBoxHeightWidget(200),
                       _scanQRButton()
                     ],
                   ),
@@ -97,8 +97,8 @@ class _TiketAdaPageState extends State<TiketAdaPage> {
               Icons.qr_code,
               color: whiteColor,
             ),
-            wSizedBoxWidth(5),
-            wText(
+            sizedBoxWidthWidget(5),
+            textWidget(
               'Scan QR Code',
               whiteColor,
               16,

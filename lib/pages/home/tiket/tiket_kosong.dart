@@ -21,25 +21,25 @@ class _TiketKosongPageState extends State<TiketKosongPage> {
       body: SafeArea(
         child: Column(
           children: [
-            wAppBar('Tiket', () => Get.back()),
+            appBarWidget('Tiket', () => Get.back()),
             Center(
               child: Column(
                 children: [
-                  wSizedBoxHeight(100),
-                  wText(
+                  sizedBoxHeightWidget(100),
+                  textWidget(
                     'Tidak ada tiket !',
                     blackColor,
                     22,
                     FontWeight.bold,
                   ),
-                  wSizedBoxHeight(10),
-                  wText(
+                  sizedBoxHeightWidget(10),
+                  textWidget(
                     'Pesan tiket Kamu terlebih dahulu.',
                     blackColor,
                     16,
                     FontWeight.normal,
                   ),
-                  wSizedBoxHeight(20),
+                  sizedBoxHeightWidget(20),
                   _pesanSekarangButton()
                 ],
               ),
@@ -61,13 +61,13 @@ class _TiketKosongPageState extends State<TiketKosongPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            wText(
+            textWidget(
               'Pesan Sekarang',
               whiteColor,
               14,
               FontWeight.normal,
             ),
-            wSizedBoxWidth(5),
+            sizedBoxWidthWidget(5),
             SvgPicture.asset('assets/svgs/order.svg')
           ],
         ),

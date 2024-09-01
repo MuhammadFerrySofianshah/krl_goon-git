@@ -49,15 +49,15 @@ class _OTPPageState extends State<OTPPage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                wSizedBoxHeight(10),
-                wText('Kode OTP telah terkirim ke nomor:', Colors.black, 18, FontWeight.normal),
+                sizedBoxHeightWidget(10),
+                textWidget('Kode OTP telah terkirim ke nomor:', Colors.black, 18, FontWeight.normal),
                 _phoneNumber(),
-                wSizedBoxHeight(30),
+                sizedBoxHeightWidget(30),
                 _inputOTP(),
-                wSizedBoxHeight(40),
+                sizedBoxHeightWidget(40),
                 _resendOTP(),
                 const Spacer(),
-                wButtonBottom(
+                buttonBottomWidget(
                   context,
                   'Send',
                   () async {
@@ -104,11 +104,11 @@ class _OTPPageState extends State<OTPPage> {
   Row _phoneNumber() {
     return Row(
       children: [
-        wText("+62${widget.vPhoneNumber}", Colors.black, 20, FontWeight.w600),
-        wSizedBoxWidth(10),
+        textWidget("+62${widget.vPhoneNumber}", Colors.black, 20, FontWeight.w600),
+        sizedBoxWidthWidget(10),
         GestureDetector(
           onTap: () => Get.back(),
-          child: wText('Ganti', Colors.amber, 20, FontWeight.normal),
+          child: textWidget('Ganti', Colors.amber, 20, FontWeight.normal),
         ),
       ],
     );
@@ -148,7 +148,7 @@ class _OTPPageState extends State<OTPPage> {
     return Center(
       child: GestureDetector(
         onTap: () => resendOtp(),
-        child: wText('Kirim Ulang (${vResendSeconds}s)', vCanResend ? Colors.black : Colors.grey, 18, FontWeight.bold),
+        child: textWidget('Kirim Ulang (${vResendSeconds}s)', vCanResend ? Colors.black : Colors.grey, 18, FontWeight.bold),
       ),
     );
   }

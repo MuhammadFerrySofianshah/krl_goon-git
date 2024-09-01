@@ -75,7 +75,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // TEXT SELAMAT DATANG
-                    wText('Selamat Datang,', blackColor, 18, FontWeight.w600),
+                    textWidget('Selamat Datang,', blackColor, 18, FontWeight.w600),
                     RichText(
                       text: TextSpan(
                         text: 'Masukkan ',
@@ -104,7 +104,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                         ],
                       ),
                     ),
-                    wSizedBoxHeight(20),
+                    sizedBoxHeightWidget(20),
 
                     // FORM PHONE NUMBER
                     Container(
@@ -191,7 +191,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
                         ],
                       ),
                     ),
-                    wSizedBoxHeight(25),
+                    sizedBoxHeightWidget(25),
 
                     // TEXT MENYETUJUI
                     RichText(
@@ -236,7 +236,7 @@ class AuthPhoneNumberState extends State<AuthPhoneNumber> {
             ),
 // BUTTON LANJUT
             const Spacer(),
-            wButtonBottom(
+            buttonBottomWidget(
               context,
               'Lanjut',
               () async {
@@ -311,7 +311,7 @@ class Auth {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               LoadingAnimationWidget.hexagonDots(color: Colors.white, size: 50),
-              wSizedBoxHeight(15),
+              sizedBoxHeightWidget(15),
               const Text(
                 'Mengirim kode OTP...',
                 style: TextStyle(
@@ -368,8 +368,8 @@ void errorMessage(BuildContext context, String message) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        // title: Center(child: wText('Error', Colors.black, 20, FontWeight.bold)),
-        title: wText('Error', Colors.black, 20, FontWeight.bold),
+        // title: Center(child: textWidget('Error', Colors.black, 20, FontWeight.bold)),
+        title: textWidget('Error', Colors.black, 20, FontWeight.bold),
         content: Text(
           message,
           style: const TextStyle(
@@ -389,7 +389,7 @@ void errorMessage(BuildContext context, String message) {
               margin: const EdgeInsets.symmetric(horizontal: 10),
               color: Colors.red,
               child: Center(
-                child: wText('OK', Colors.white, 18, FontWeight.w600),
+                child: textWidget('OK', Colors.white, 18, FontWeight.w600),
               ),
             ),
           ),

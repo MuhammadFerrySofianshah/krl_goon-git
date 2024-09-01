@@ -23,29 +23,29 @@ class _IsiSaldoPageState extends State<IsiSaldoPage> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                wAppBar('Isi Saldo', () => Get.back()),
+                appBarWidget('Isi Saldo', () => Get.back()),
                 Container(
                   margin: const EdgeInsets.all(20),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      wText('Mau isi saldo kamu dengan cara apa ?', blackColor,
+                      textWidget('Mau isi saldo kamu dengan cara apa ?', blackColor,
                           16, FontWeight.normal),
-                      wSizedBoxHeight(8),
-                      wText('Transfer Bank', Colors.black38, 14,
+                      sizedBoxHeightWidget(8),
+                      textWidget('Transfer Bank', Colors.black38, 14,
                           FontWeight.normal),
-                      wSizedBoxHeight(8),
+                      sizedBoxHeightWidget(8),
                       _BoxBCA(),
-                      wSizedBoxHeight(10),
+                      sizedBoxHeightWidget(10),
                       _BoxBRI(),
-                      wSizedBoxHeight(10),
+                      sizedBoxHeightWidget(10),
                       _BoxMandiri(),
                     ],
                   ),
                 ),
                 // appBar: AppBar(
                 //   backgroundColor: bgColor,
-                //   title: wText(
+                //   title: textWidget(
                 //     'Isi saldo',
                 //     blackColor,
                 //     18,
@@ -58,15 +58,15 @@ class _IsiSaldoPageState extends State<IsiSaldoPage> {
 //           child: Column(
 //             crossAxisAlignment: CrossAxisAlignment.start,
 //             children: [
-//               wText('Mau isi saldo kamu dengan cara apa ?', blackColor, 16,
+//               textWidget('Mau isi saldo kamu dengan cara apa ?', blackColor, 16,
 //                   FontWeight.normal),
-//               wSizedBoxHeight(8),
-//               wText('Transfer Bank', Colors.black38, 14, FontWeight.normal),
-//               wSizedBoxHeight(8),
+//               sizedBoxHeightWidget(8),
+//               textWidget('Transfer Bank', Colors.black38, 14, FontWeight.normal),
+//               sizedBoxHeightWidget(8),
 //               _BoxBCA(),
-//               wSizedBoxHeight(10),
+//               sizedBoxHeightWidget(10),
 //               _BoxBRI(),
-//               wSizedBoxHeight(10),
+//               sizedBoxHeightWidget(10),
 //               _BoxMandiri(),
               ],
             ),

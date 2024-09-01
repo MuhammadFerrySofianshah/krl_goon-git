@@ -6,14 +6,14 @@ import 'package:google_fonts/google_fonts.dart';
 import '../colors.dart';
 
 /// Nav Bar
-Widget wAppBar(String text, VoidCallback onPressed) {
+Widget appBarWidget(String text, VoidCallback onPressed) {
   return Container(
     margin: const EdgeInsets.only(left: 8,top: 5),
     child: Row(
       children: [
         IconButton(
             onPressed: onPressed, icon: const Icon(Icons.arrow_back_ios)),
-        wText(
+        textWidget(
           text,
           blackColor,
           18,
@@ -25,7 +25,7 @@ Widget wAppBar(String text, VoidCallback onPressed) {
 }
 
 /// Widget Text
-Widget wText(String text ,Color color ,double fontSize,FontWeight fontWeight) {
+Widget textWidget(String text ,Color color ,double fontSize,FontWeight fontWeight) {
   return Text(
           text,
           style: GoogleFonts.poppins(
@@ -37,26 +37,26 @@ Widget wText(String text ,Color color ,double fontSize,FontWeight fontWeight) {
 }
 
 /// SizedBox untuk Height
-Widget wSizedBoxHeight(double height) {
+Widget sizedBoxHeightWidget(double height) {
   return SizedBox(height: height);
 }
 
 /// SizedBox untuk Width
-Widget wSizedBoxWidth(double width) {
+Widget sizedBoxWidthWidget(double width) {
   return SizedBox(width: width);
 }
 
 /// Navigator Push
- wPush(context, WidgetBuilder page) {
+ pushWidget(context, WidgetBuilder page) {
   return Navigator.push(context, MaterialPageRoute(builder: page));
 }
 
 /// Navigator Off
- wOff(BuildContext context, WidgetBuilder page) {
+ offWidget(BuildContext context, WidgetBuilder page) {
   return Navigator.pushReplacement(context, MaterialPageRoute(builder: page));
 }
 /// Button Bawah
-Widget wButtonBottom(context, String textButton, VoidCallback onTap) {
+Widget buttonBottomWidget(context, String textButton, VoidCallback onTap) {
   return InkWell(
     onTap: onTap,
     child: Container(

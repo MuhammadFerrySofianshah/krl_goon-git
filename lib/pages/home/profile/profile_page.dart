@@ -20,7 +20,7 @@ class _ProfilePageState extends State<ProfilePage> {
           backgroundColor: yellowColor,
           automaticallyImplyLeading: false,
           centerTitle: true,
-          title: wText(
+          title: textWidget(
             'Akun Saya',
             whiteColor,
             18,
@@ -33,13 +33,13 @@ class _ProfilePageState extends State<ProfilePage> {
                     context: context,
                     builder: (context) {
                       return AlertDialog(
-                        title: wText(
+                        title: textWidget(
                           'Confirm Logout',
                           blackColor,
                           16,
                           FontWeight.w600,
                         ),
-                        content: wText(
+                        content: textWidget(
                           'Apakah Anda yakin ingin Logout?',
                           blackColor,
                           14,
@@ -48,7 +48,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(false),
-                            child: wText(
+                            child: textWidget(
                               'Batal', 
                               blackColor,
                               14,
@@ -57,7 +57,7 @@ class _ProfilePageState extends State<ProfilePage> {
                           ),
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(true),
-                            child: wText(
+                            child: textWidget(
                               'Logout',
                               blackColor,
                               14,
@@ -120,9 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          wText('Nama', const Color(0xff8596A0), 16,
+                          textWidget('Nama', const Color(0xff8596A0), 16,
                               FontWeight.normal),
-                          wText('Muhammad Ferry Sofianshah', blackColor, 18,
+                          textWidget('Muhammad Ferry Sofianshah', blackColor, 18,
                               FontWeight.normal),
                         ],
                       ),
@@ -152,9 +152,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          wText('Telepon', const Color(0xff8596A0), 16,
+                          textWidget('Telepon', const Color(0xff8596A0), 16,
                               FontWeight.normal),
-                          wText('+62 896 8812 0962', blackColor, 18,
+                          textWidget('+62 896 8812 0962', blackColor, 18,
                               FontWeight.normal),
                         ],
                       ),

@@ -24,16 +24,16 @@ class _ScanMasukState extends State<ScanMasuk> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              wText('SCAN MASUK', redColor, 22, FontWeight.bold),
-              wSizedBoxHeight(15),
-              wText('Stasiun Bekasi', blackColor, 16, FontWeight.normal),
-              wSizedBoxHeight(30),
+              textWidget('SCAN MASUK', redColor, 22, FontWeight.bold),
+              sizedBoxHeightWidget(15),
+              textWidget('Stasiun Bekasi', blackColor, 16, FontWeight.normal),
+              sizedBoxHeightWidget(30),
               GestureDetector(
                 onTap: () => Get.off(const SuccessPage()),
                 child: Image.asset('assets/images/qr_code.png')),
-              wSizedBoxHeight(50),
+              sizedBoxHeightWidget(50),
               _richText(),
-              wSizedBoxHeight(40),
+              sizedBoxHeightWidget(40),
               _buttonKembali()
             ],
           ),
@@ -50,7 +50,7 @@ class _ScanMasukState extends State<ScanMasuk> {
                 decoration: BoxDecoration(
                     border: Border.all(color: blackColor),
                     borderRadius: BorderRadius.circular(8)),
-                child: wText('Kembali', blackColor, 16, FontWeight.normal),
+                child: textWidget('Kembali', blackColor, 16, FontWeight.normal),
               ),
             );
   }

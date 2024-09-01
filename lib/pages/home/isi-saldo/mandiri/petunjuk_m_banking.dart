@@ -12,7 +12,7 @@ class PetunjukMBankingPage extends StatelessWidget {
         backgroundColor: bgColor,
       appBar: AppBar(
         backgroundColor: bgColor,
-        title: wText(
+        title: textWidget(
           'Petunjuk Transfer M-Banking',
           blackColor,
           18,
@@ -29,15 +29,15 @@ class PetunjukMBankingPage extends StatelessWidget {
           child: Column(
             children: [
               _text1(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text2(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text3(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text4(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text5(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text6(),
             ],
           ),
@@ -51,7 +51,7 @@ class PetunjukMBankingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '1.  ',
           blackColor,
           16,
@@ -88,7 +88,7 @@ class PetunjukMBankingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '2. ',
           blackColor,
           16,
@@ -148,7 +148,7 @@ class PetunjukMBankingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '3. ',
           blackColor,
           16,
@@ -201,7 +201,7 @@ class PetunjukMBankingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '4. ',
           blackColor,
           16,
@@ -254,7 +254,7 @@ class PetunjukMBankingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '5. ',
           blackColor,
           16,
@@ -307,7 +307,7 @@ class PetunjukMBankingPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '6. ',
           blackColor,
           16,

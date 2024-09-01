@@ -32,20 +32,20 @@ class _BantuanPageState extends State<BantuanPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              wText(
+              textWidget(
                 'Hello, \nhow can we help ?',
                 blackColor,
                 18,
                 FontWeight.w600,
               ),
-              wSizedBoxHeight(10),
-              wText(
+              sizedBoxHeightWidget(10),
+              textWidget(
                 'Find answers and inspiration for everything about us',
                 blackColor,
                 16,
                 FontWeight.normal,
               ),
-              wSizedBoxHeight(15),
+              sizedBoxHeightWidget(15),
               _boxInput(),
             ],
           ),

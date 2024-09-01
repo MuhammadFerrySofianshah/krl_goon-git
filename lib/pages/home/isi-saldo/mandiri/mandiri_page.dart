@@ -20,7 +20,7 @@ class _MandiriPageState extends State<MandiriPage> {
       backgroundColor: bgColor,
       appBar: AppBar(
         backgroundColor: bgColor,
-        title: wText(
+        title: textWidget(
           'Mandiri',
           blackColor,
           18,
@@ -33,42 +33,42 @@ class _MandiriPageState extends State<MandiriPage> {
           child: Column(
             children: [
               _imageMandiri(),
-              wText(
+              textWidget(
                 'Mandiri Virtual Account Number',
                 blackColor,
                 14,
                 FontWeight.normal,
               ),
-              wSizedBoxHeight(4),
-              wText(
+              sizedBoxHeightWidget(4),
+              textWidget(
                 '1234 5678 91011 1213',
                 Colors.red,
                 22,
                 FontWeight.w500,
               ),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _salinCodeBox(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               Container(
                 color: grayColor,
                 padding: const EdgeInsets.all(20),
                 child: Column(
                   children: [
                     _text1(),
-                    wSizedBoxHeight(5),
+                    sizedBoxHeightWidget(5),
                     _text2(),
-                    wSizedBoxHeight(5),
+                    sizedBoxHeightWidget(5),
                     _text3(),
-                    wSizedBoxHeight(5),
+                    sizedBoxHeightWidget(5),
                     _text4(),
                   ],
                 ),
               ),
-                    wSizedBoxHeight(20),
+                    sizedBoxHeightWidget(20),
               _petunjukMBanking(),
-                    wSizedBoxHeight(20),
+                    sizedBoxHeightWidget(20),
               _petunjukATM(),
-                    wSizedBoxHeight(20),
+                    sizedBoxHeightWidget(20),
             ],
           ),
         ),
@@ -87,7 +87,7 @@ class _MandiriPageState extends State<MandiriPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        wText('Petunjuk Transfer ATM', blackColor, 16,
+                        textWidget('Petunjuk Transfer ATM', blackColor, 16,
                             FontWeight.normal),
                         const Icon(
                           Icons.arrow_forward_ios,
@@ -109,7 +109,7 @@ class _MandiriPageState extends State<MandiriPage> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        wText('Petunjuk Transfer M-Banking', blackColor, 16,
+                        textWidget('Petunjuk Transfer M-Banking', blackColor, 16,
                             FontWeight.normal),
                         const Icon(
                           Icons.arrow_forward_ios,
@@ -127,7 +127,7 @@ class _MandiriPageState extends State<MandiriPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '1. ',
           blackColor,
           16,
@@ -180,14 +180,14 @@ class _MandiriPageState extends State<MandiriPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '2. ',
           blackColor,
           16,
           FontWeight.normal,
         ),
         Expanded(
-            child: wText(
+            child: textWidget(
                 'Isi saldo dengan Akun Virtual di atas sebelum melakukan perjalanan apabila saldo tidak mencukupi dengan nomor yang sama.',
                 blackColor,
                 16,
@@ -201,7 +201,7 @@ class _MandiriPageState extends State<MandiriPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '3. ',
           blackColor,
           16,
@@ -238,7 +238,7 @@ class _MandiriPageState extends State<MandiriPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '4. ',
           blackColor,
           16,
@@ -289,7 +289,7 @@ class _MandiriPageState extends State<MandiriPage> {
           borderRadius: BorderRadius.circular(8)),
       child: Align(
         alignment: Alignment.center,
-        child: wText(
+        child: textWidget(
           'Salin Code',
           yellowColor,
           16,

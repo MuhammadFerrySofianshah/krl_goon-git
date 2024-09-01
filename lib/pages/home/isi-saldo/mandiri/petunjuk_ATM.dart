@@ -12,7 +12,7 @@ class PetunjukATMPage extends StatelessWidget {
         backgroundColor: bgColor,
       appBar: AppBar(
         backgroundColor: bgColor,
-        title: wText(
+        title: textWidget(
           'Petunjuk Transfer ATM',
           blackColor,
           18,
@@ -29,11 +29,11 @@ class PetunjukATMPage extends StatelessWidget {
           child: Column(
             children: [
               _text1(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text2(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text3(),
-              wSizedBoxHeight(10),
+              sizedBoxHeightWidget(10),
               _text4(),
            
             ],
@@ -48,7 +48,7 @@ class PetunjukATMPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '1.  ',
           blackColor,
           16,
@@ -85,7 +85,7 @@ class PetunjukATMPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '2. ',
           blackColor,
           16,
@@ -145,7 +145,7 @@ class PetunjukATMPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '3. ',
           blackColor,
           16,
@@ -198,7 +198,7 @@ class PetunjukATMPage extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        wText(
+        textWidget(
           '4. ',
           blackColor,
           16,
